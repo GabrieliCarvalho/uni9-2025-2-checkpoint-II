@@ -1,16 +1,21 @@
 from abc import ABC, abstractmethod
+# Importa a classe base para 'type hinting' (boa prática)
 from mensagens import Mensagem  
 
-
+# --- INTERFACE (ABSTRAÇÃO) ---
 class ICanal(ABC):
- 
+    """
+    Define o "contrato" (interface) que todos os canais devem seguir.
+    Isso garante que todos terão o método .enviar()
+    """
     
     @abstractmethod
     def enviar(self, mensagem: Mensagem, destinatario: str):
-        
+        """Método abstrato para enviar uma mensagem."""
         pass
 
-
+# --- IMPLEMENTAÇÕES CONCRETAS (POLIMORFISMO) ---
+# Cada classe implementa a interface ICanal
 
 class WhatsApp(ICanal):
     """Implementação do canal WhatsApp."""
