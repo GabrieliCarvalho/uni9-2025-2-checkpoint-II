@@ -1,12 +1,11 @@
 
-# Importa as classes dos outros arquivos
+
 from canais import WhatsApp, Telegram, Facebook, Instagram, ICanal
 from mensagens import MensagemTexto, MensagemVideo, MensagemFoto, MensagemArquivo
 
-# Importa 'List' para 'type hinting' (boa prática)
+
 from typing import List
 
-# --- PARTE 1: TESTE AUTOMÁTICO (O que você já tinha) ---
 def rodar_demonstracao():
     """Função que roda todos os testes pré-definidos."""
     
@@ -14,13 +13,13 @@ def rodar_demonstracao():
     print("### INICIANDO DEMONSTRAÇÃO AUTOMÁTICA (TESTE) ###")
     print("=" * 40 + "\n")
 
-    # Instanciando os canais
+
     canal_whatsapp = WhatsApp()
     canal_telegram = Telegram()
     canal_facebook = Facebook()
     canal_instagram = Instagram()
 
-    # Instanciando as mensagens
+
     msg_texto = MensagemTexto("Olá! Este é o checkpoint II de POO.")
     msg_foto = MensagemFoto("Foto da equipe!", "equipe.jpg")
     msg_video = MensagemVideo("Tutorial de Python", "tutorial.mp4", "video/mp4", 300)
@@ -42,7 +41,7 @@ def rodar_demonstracao():
     print("=" * 40 + "\n")
 
 
-# --- PARTE 2: MENU INTERATIVO (Novo) ---
+
 def menu_interativo():
     """Função que mostra um menu para o usuário escolher o que enviar."""
     
@@ -50,7 +49,6 @@ def menu_interativo():
     print("### INICIANDO MODO INTERATIVO ###")
     print("=" * 40 + "\n")
 
-    # Instanciamos os canais que o menu pode usar
     canais = {
         "1": WhatsApp(),
         "2": Telegram(),
@@ -59,7 +57,7 @@ def menu_interativo():
     }
 
     while True:
-        # 1. Pergunta o Canal
+
         print("Para qual canal você quer enviar mensagem?")
         print("  1: WhatsApp")
         print("  2: Telegram")
@@ -77,13 +75,12 @@ def menu_interativo():
             print("\nOpção inválida! Tente novamente.\n")
             continue
         
-        # Seleciona o objeto do canal (Polimorfismo!)
+
         canal_selecionado = canais[escolha_canal]
         
-        # 2. Pergunta o Destinatário
+
         destinatario = input(f"Digite o destinatário para {canal_selecionado.__class__.__name__}: ")
-        
-        # 3. Pergunta o tipo de Mensagem
+
         print("\nQual tipo de mensagem?")
         print("  1: Texto")
         print("  2: Foto")
@@ -95,11 +92,11 @@ def menu_interativo():
         
         mensagem_para_enviar = None
 
-        # Cria o objeto de mensagem correto (Polimorfismo!)
+
         if escolha_tipo == "1":
             mensagem_para_enviar = MensagemTexto(texto_base)
         elif escolha_tipo == "2":
-            # Usamos nomes de arquivo fixos para simplificar o menu
+
             mensagem_para_enviar = MensagemFoto(texto_base, "foto_interativa.jpg")
         elif escolha_tipo == "3":
             mensagem_para_enviar = MensagemVideo(texto_base, "video_interativo.mp4", "video/mp4", 60)
@@ -109,9 +106,7 @@ def menu_interativo():
             print("\nTipo inválido. Enviando como texto simples.")
             mensagem_para_enviar = MensagemTexto(texto_base)
             
-        # 4. Envia a Mensagem
-        # Graças ao Polimorfismo, não importa qual canal ou qual mensagem
-        # foi escolhida, o método .enviar() simplesmente funciona.
+
         try:
             canal_selecionado.enviar(mensagem_para_enviar, destinatario)
             print("--- Mensagem enviada com sucesso! --- \n")
@@ -119,15 +114,13 @@ def menu_interativo():
             print(f"Erro ao enviar: {e}\n")
 
 
-# --- Ponto de entrada do script ---
-# Bloco padrão para garantir que o script só rode quando executado diretamente
+
 if __name__ == "__main__":
-    
-    # 1. Roda o teste automático primeiro
+
     rodar_demonstracao()
     
-    # 2. Pergunta se quer entrar no modo interativo
+
     input("... Pressione ENTER para continuar para o Menu Interativo ...")
     
-    # 3. Inicia o menu
+
     menu_interativo()
